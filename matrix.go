@@ -21,7 +21,7 @@ func (m Matrix) Prepare(values []float64, arguments []float64) error {
 		m.N = len(values)
 		return nil
 	} else {
-		return errors.New("interpolation: Wrong input - arguments length is not equal to values lengths")
+		return errors.New("interpolation: Wrong input - arguments length is not equal to values length")
 	}
 }
 

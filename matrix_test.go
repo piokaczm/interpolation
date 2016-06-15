@@ -2,15 +2,8 @@ package main
 
 import (
 	"math"
-	"reflect"
 	"testing"
 )
-
-func Expect(t *testing.T, a interface{}, b interface{}) {
-	if a != b {
-		t.Errorf("Expected %v (type %v) - Got %v (type %v)", b, reflect.TypeOf(b), a, reflect.TypeOf(a))
-	}
-}
 
 var test_args = []float64{2, 3, 6, 7, 8, 10}
 var test_values = []float64{0, 2, 3, 5, 1, 2}

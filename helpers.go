@@ -2,6 +2,8 @@ package main
 
 import (
 	"math"
+	"reflect"
+	"testing"
 )
 
 // reverse slice
@@ -28,5 +30,11 @@ func roundToInt(val float64) int {
 func check(e error) {
 	if e != nil {
 		panic(e)
+	}
+}
+
+func Expect(t *testing.T, a interface{}, b interface{}) {
+	if a != b {
+		t.Errorf("Expected %v (type %v) - Got %v (type %v)", b, reflect.TypeOf(b), a, reflect.TypeOf(a))
 	}
 }
