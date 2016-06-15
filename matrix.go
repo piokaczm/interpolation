@@ -96,19 +96,6 @@ func (m Matrix) matrixFx(values []float64) *mat64.Dense {
 	return mat64.NewDense(m.N, 1, values)
 }
 
-// prepare values for matrixes
-
-// MOVE THIS ONE TO WRAPPER
-// func getValuesFx(config ServerConfig) []float64 {
-// 	req := make([]float64, 0, N)
-// 	vmax := float64(config.Vmax)
-// 	for _, rate := range config.Rates {
-// 		res := rate * vmax
-// 		req = append(req, res)
-// 	}
-// 	return req
-// }
-
 func (m Matrix) getValuesX() []float64 {
 	result := make([]float64, 0, int(math.Pow(float64(m.N), 2.0)))
 	for _, arg := range m.Args {

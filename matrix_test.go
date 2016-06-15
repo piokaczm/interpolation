@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "github.com/gonum/matrix/mat64"
 	"math"
 	"reflect"
 	"testing"
