@@ -1,8 +1,7 @@
-package main
+package interpolation
 
 import (
 	"errors"
-	"fmt"
 )
 
 type Newton struct {
@@ -43,17 +42,28 @@ func (n Newton) makeMap(diffs []float64, limit int) map[int]int {
 }
 
 func (n Newton) calcValue(diffs []float64, x float64) int {
-	fmt.Print("IN CALC-VALUE\n")
-	sum := n.Values[0]
+	// something's fucked up here
+	var sum float64
+	multi_count := len(n.Args)
+	multipliers := make([]float64, 0, multi_count+1)
+	for i := multi_count; i >= 0; i-- {
+		if i == 0 {
+			multipliers = append(multipliers, 1)
+		} else {
+			multipliers = append(multipliers, x-n.Args[i-1])
+		}
+	}
+	multipliers = reverse(multipliers)
 	for i, diff := range diffs {
-		multipliers := make([]float64, i)
-		for j := i; j >= 0; j-- {
-			multipliers = append(multipliers, x-n.Args[j])
-		}
 		multi := 1.0
-		for _, m := range multipliers {
-			multi = multi * m
+		for j := i; j >= 0; j-- {
+			multi = multi * multipliers[j]
 		}
+
+		if x == 6 {
+			_ = "breakpoint"
+		}
+
 		sum = sum + diff*multi
 	}
 	return roundToInt(sum)
@@ -62,14 +72,16 @@ func (n Newton) calcValue(diffs []float64, x float64) int {
 func (n Newton) calcDiffs() []float64 {
 	values := make([]float64, n.N)
 	for i := 0; i <= n.N-1; i++ {
-		fmt.Printf("IN CALC-DIFF, i: %v\n", i)
-		values[i] = n.singleDiff(i)
+		if i == 0 {
+			values[i] = n.Values[0]
+		} else {
+			values[i] = n.singleDiff(i)
+		}
 	}
 	return values
 }
 
 func (n Newton) singleDiff(j int) float64 {
-	fmt.Print("IN SINGLE DIFF\n")
 	if j == 1 {
 		return n.diff(j)
 	} else {
@@ -86,9 +98,8 @@ func (n Newton) singleDiff(j int) float64 {
 }
 
 func (n Newton) diff(j int) float64 {
-	fmt.Printf("in diff, j: %v \n", j)
 	if j >= 1 {
-		return (n.Values[j] - n.Values[j-1]) / (n.Args[j-1] - n.Args[j])
+		return (n.Values[j] - n.Values[j-1]) / (n.Args[j] - n.Args[j-1])
 	} else {
 		return 0
 	}
