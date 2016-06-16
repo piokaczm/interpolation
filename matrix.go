@@ -26,7 +26,7 @@ func (m Matrix) Prepare(values []float64, arguments []float64) error {
 }
 
 // get array of f(x)'s
-func (m Matrix) ArrayData(limit int) []int {
+func (m Matrix) InterpolationArray(limit int) []int {
 	solution := m.matrixSolve()
 	return m.makeArray(solution, limit)
 }
