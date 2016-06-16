@@ -17,6 +17,7 @@ var matrix = Matrix{
 
 func TestMap(t *testing.T) {
 	test_map := matrix.InterpolationMap(4)
+	Expect(t, len(test_map), 4)
 	Expect(t, test_map[2], 0)
 	Expect(t, test_map[3], 2)
 }
