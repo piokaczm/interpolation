@@ -1,4 +1,4 @@
-package interpolate
+package interpolation
 
 func NormalizeMap(m map[int]int, max int, min int) map[int]int {
 	for i, pair := range m {
