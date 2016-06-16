@@ -1,6 +1,6 @@
 package interpolate
 
-func normalizeMap(m map[int]int, max int, min int) map[int]int {
+func NormalizeMap(m map[int]int, max int, min int) map[int]int {
 	for i, pair := range m {
 		if rate > max {
 			rates[i] = max
