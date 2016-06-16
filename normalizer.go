@@ -10,3 +10,14 @@ func NormalizeMap(m map[int]int, max int, min int) map[int]int {
 	}
 	return m
 }
+
+func NormalizeArray(m []int, max int, min int) []int {
+	for i, val := range m {
+		if val > max {
+			m[i] = max
+		} else if val < min {
+			m[i] = min
+		}
+	}
+	return m
+}

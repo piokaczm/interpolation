@@ -6,11 +6,11 @@ import (
 )
 
 var test_args = []float64{2, 3, 6, 7, 8, 10}
-var test_values = []float64{0, 2, 3, 5, 1, 2}
+var test_vals = []float64{0, 2, 3, 5, 1, 2}
 
 // skip val/args validation for tests
 var matrix = Matrix{
-	Values: test_values,
+	Values: test_vals,
 	Args:   test_args,
 	N:      6,
 }

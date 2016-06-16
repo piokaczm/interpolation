@@ -60,9 +60,9 @@ func (n Newton) calcValue(diffs []float64, x float64) int {
 			multi = multi * multipliers[j]
 		}
 
-		if x == 6 {
-			_ = "breakpoint"
-		}
+		// if x == 6 {
+		// 	_ = "breakpoint"
+		// }
 
 		sum = sum + diff*multi
 	}
