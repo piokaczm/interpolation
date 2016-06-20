@@ -12,7 +12,6 @@ var m = Matrix{
 	N:      5,
 }
 
-// check where vals are above limits and just check them then...
 func TestNormalizeMap(t *testing.T) {
 	norm_map := m.InterpolationMap(1440)
 	val1 := norm_map[0]
