@@ -22,7 +22,7 @@ func TestNormalizeMap(t *testing.T) {
 }
 
 func TestNormalizeArray(t *testing.T) {
-	norm_arr := m.ArrayData(1440)
+	norm_arr := m.InterpolationArray(1440)
 	val1 := norm_arr[0]
 	val2 := norm_arr[400]
 	NormalizeArray(norm_arr, 4000, 0)

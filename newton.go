@@ -22,85 +22,55 @@ func (n Newton) Prepare(values []float64, arguments []float64) error {
 }
 
 // get array of f(x)'s
-// func (n Newton) ArrayData(limit int) []int {
-// 	// calculations
-// 	return n.makeArray(solution, limit)
-// }
+func (n Newton) InterpolationArray(limit int) []int {
+	// calculations
+	return n.makeArray(limit)
+}
 
 // get map in format x: f(x) for given range
 func (n Newton) InterpolationMap(limit int) map[int]int {
-	diffs := n.calcDiffs()
-	return n.makeMap(diffs, limit)
+	return n.makeMap(limit)
 }
 
-func (n Newton) makeMap(diffs []float64, limit int) map[int]int {
+func (n Newton) makeMap(limit int) map[int]int {
 	results := make(map[int]int)
 	for i := 0; i <= limit-1; i++ {
-		results[i] = n.calcValue(diffs, float64(i))
+		results[i] = n.calcValue(i)
 	}
 	return results
 }
 
-func (n Newton) calcValue(diffs []float64, x float64) int {
-	// something's fucked up here
-	var sum float64
-	multi_count := len(n.Args)
-	multipliers := make([]float64, 0, multi_count+1)
-	for i := multi_count; i >= 0; i-- {
-		if i == 0 {
-			multipliers = append(multipliers, 1)
-		} else {
-			multipliers = append(multipliers, x-n.Args[i-1])
-		}
+func (n Newton) makeArray(limit int) []int {
+	results := make([]int, limit)
+	for i := 0; i <= limit-1; i++ {
+		results[i] = n.calcValue(i)
 	}
-	multipliers = reverse(multipliers)
-	for i, diff := range diffs {
-		multi := 1.0
-		for j := i; j >= 0; j-- {
-			multi = multi * multipliers[j]
-		}
-
-		// if x == 6 {
-		// 	_ = "breakpoint"
-		// }
-
-		sum = sum + diff*multi
-	}
-	return roundToInt(sum)
+	return results
 }
 
-func (n Newton) calcDiffs() []float64 {
-	values := make([]float64, n.N)
-	for i := 0; i <= n.N-1; i++ {
-		if i == 0 {
-			values[i] = n.Values[0]
-		} else {
-			values[i] = n.singleDiff(i)
-		}
-	}
-	return values
-}
+func (newt Newton) calcValue(k int) int {
+	// clean it up mate
+	x := append([]float64{0}, newt.Args...)
+	y := append([]float64{0}, newt.Values...)
+	j := 1
+	f1 := 1.0
+	f2 := 0.0
+	f := y[1]
 
-func (n Newton) singleDiff(j int) float64 {
-	if j == 1 {
-		return n.diff(j)
-	} else {
-		nom_vals := make([]float64, 0, j)
-		for i := j; i >= 0; i-- {
-			nom_vals = append(nom_vals, n.diff(i))
+	max := 15
+	p := make([]float64, max)
+	for n := newt.N; n > 1; n-- {
+		for i := 1; i <= n-1; i++ {
+			p[i] = ((y[i+1] - y[i]) / (x[i+j] - x[i]))
+			y[i] = p[i]
 		}
-		nominator := nom_vals[0]
-		for _, val := range nom_vals[1:] {
-			nominator = nominator - val
+		f1 = 1
+		for i := 1; i <= j; i++ {
+			f1 *= (float64(k) - x[i])
 		}
-		return nominator / (n.Args[j] - n.Args[0])
+		f2 += (y[1] * f1)
+		j++
 	}
-}
-
-func (n Newton) diff(j int) float64 {
-	if j >= 1 {
-		return (n.Values[j] - n.Values[j-1]) / (n.Args[j] - n.Args[j-1])
-	} else {
-		return 0
-	}
+	f += f2
+	return roundToInt(f)
 }

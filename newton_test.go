@@ -15,24 +15,29 @@ var newton = Newton{
 	N:      4,
 }
 
-func TestDiff(t *testing.T) {
-	n_test_diff_2 := newton.diff(2)
-	Expect(t, n_test_diff_2, 10.0)
-	n_test_diff_3 := newton.diff(3)
-	Expect(t, n_test_diff_3, 13.0)
-}
-
-func TestSingleDiff(t *testing.T) {
-	n_test_single_diff := newton.singleDiff(2)
-	Expect(t, n_test_single_diff, 1.0)
-	n_test_single_diff_2 := newton.singleDiff(3)
-	Expect(t, n_test_single_diff_2, -0.8)
-}
-
 func TestNMap(t *testing.T) {
 	n_test_map := newton.InterpolationMap(7)
 	Expect(t, n_test_map[1], 11)
 	Expect(t, n_test_map[3], 25)
 	Expect(t, n_test_map[4], 35)
-	// Expect(t, n_test_map[6], 61)
+	Expect(t, n_test_map[6], 61)
+}
+
+func TestNArray(t *testing.T) {
+	n_test_array := newton.InterpolationMap(7)
+	Expect(t, n_test_array[1], 11)
+	Expect(t, n_test_array[3], 25)
+	Expect(t, n_test_array[4], 35)
+	Expect(t, n_test_array[6], 61)
+}
+
+func TestCalcValue(t *testing.T) {
+	val_6 := newton.calcValue(6)
+	Expect(t, val_6, 61)
+	val_4 := newton.calcValue(4)
+	Expect(t, val_4, 35)
+	val_3 := newton.calcValue(3)
+	Expect(t, val_3, 25)
+	val_1 := newton.calcValue(1)
+	Expect(t, val_1, 11)
 }
