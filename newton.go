@@ -56,9 +56,7 @@ func (newt Newton) calcValue(k int) int {
 	f1 := 1.0
 	f2 := 0.0
 	f := y[1]
-
-	max := 15
-	p := make([]float64, max)
+	p := make([]float64, newt.N)
 	for n := newt.N; n > 1; n-- {
 		for i := 1; i <= n-1; i++ {
 			p[i] = ((y[i+1] - y[i]) / (x[i+j] - x[i]))
