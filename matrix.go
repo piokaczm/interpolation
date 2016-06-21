@@ -14,7 +14,7 @@ type Matrix struct {
 
 // call it to feed values to struct for further calculations
 // they must be in proper order => xi: arguments[i]; f(xi): values[i]
-func (m Matrix) Prepare(values []float64, arguments []float64) error {
+func (m *Matrix) Prepare(values []float64, arguments []float64) error {
 	if len(values) == len(arguments) {
 		m.Values = values
 		m.Args = arguments

@@ -15,6 +15,16 @@ var matrix = Matrix{
 	N:      6,
 }
 
+func TestPrepare(t *testing.T) {
+	err := matrix.Prepare([]float64{1, 2, 3}, []float64{3, 2, 1})
+	check(err)
+	Expect(t, len(matrix.Args), 3)
+	Expect(t, len(matrix.Values), 3)
+	Expect(t, matrix.N, 3)
+	e := matrix.Prepare(test_vals, test_args)
+	check(e)
+}
+
 func TestMap(t *testing.T) {
 	test_map := matrix.InterpolationMap(4)
 	Expect(t, len(test_map), 4)

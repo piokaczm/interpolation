@@ -10,7 +10,7 @@ type Newton struct {
 	N      int
 }
 
-func (n Newton) Prepare(values []float64, arguments []float64) error {
+func (n *Newton) Prepare(values []float64, arguments []float64) error {
 	if len(values) == len(arguments) {
 		n.Values = values
 		n.Args = arguments
