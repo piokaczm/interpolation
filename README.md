@@ -2,7 +2,6 @@
 
 ## Golang lib for calculating interpolations
 
-#### **!!! matrix should work just fine, other methods WIP !!!**
 
 ### Installation
 
